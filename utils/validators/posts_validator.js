@@ -2,7 +2,6 @@ const {check} = require('express-validator');
 
 const validator = require("../../middlewere/validator")
 const CategoryModel = require("../../model/category_model")
-const {ApiError} = require("../error_handeler");
 exports.addPost = [
 
     check("title")

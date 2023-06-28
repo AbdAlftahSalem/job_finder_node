@@ -3,7 +3,7 @@ const PostModel = require("../model/post_model")
 
 exports.getPosts = async (req, res, next) => {
     try {
-        const posts = await PostModel.find({categories: {$in: req.body.user["categories"]}}).exec();
+        const posts = await PostModel.find({category_id: {$in: req.body.user["categories"]}}).exec();
         return res.status(200).json(posts)
     } catch (e) {
         return res.status(400).json({"res": e})
