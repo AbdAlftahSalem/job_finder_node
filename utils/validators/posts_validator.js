@@ -2,6 +2,8 @@ const {check} = require('express-validator');
 
 const validator = require("../../middlewere/validator")
 const CategoryModel = require("../../model/category_model")
+const PostModel = require("../../model/post_model")
+
 exports.addPost = [
 
     check("title")
@@ -25,3 +27,10 @@ exports.addPost = [
     validator,
 ]
 
+
+exports.removePost = [
+    check("post_id")
+        .isMongoId()
+        .withMessage("Enter valid id"),
+    validator
+]

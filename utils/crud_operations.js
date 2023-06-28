@@ -57,7 +57,7 @@ class CrudOperations {
 
     }
 
-    static async deleteElement(req, res, next, model, filter = {}) {
+    static async removeElement(req, res, next, model, filter = {}) {
 
         return await model.deleteOne(filter).then((v) => {
             if (v == null) {

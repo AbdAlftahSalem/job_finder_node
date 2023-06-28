@@ -1,7 +1,8 @@
 const CrudOperations = require("../utils/crud_operations")
 const PostModel = require("../model/post_model")
+const {ApiError} = require("../utils/error_handeler");
 
-exports.getPosts = async (req, res, next) => {
+exports.getPosts = async (req, res) => {
     try {
         const posts = await PostModel.find({category_id: {$in: req.body.user["categories"]}}).exec();
         return res.status(200).json(posts)
@@ -14,6 +15,23 @@ exports.getPosts = async (req, res, next) => {
 exports.addPost = async (req, res, next) => {
     req.body.user_id = req.body.user["_id"]
     const post = await CrudOperations.addElement(req, res, next, PostModel)
+    return res.status(200).json(post)
+
+}
+
+exports.removePost = async (req, res, next) => {
+
+    const posts = await PostModel.find({"_id": req.body["post_id"]})
+
+    if (posts.length === 0) {
+        return res.status(404).json({"res": "post no found"})
+    }
+
+    if (req.body["user"]["_id"].toString() !== posts[0]["user_id"].toString()) {
+        return res.status(404).json({"res": "You are not the creator of this post"});
+    }
+
+    const post = await CrudOperations.removeElement(req, res, next, PostModel)
     return res.status(200).json(post)
 
 }
