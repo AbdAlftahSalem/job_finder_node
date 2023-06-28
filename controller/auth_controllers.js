@@ -49,6 +49,7 @@ exports.getMe = async (req, res) => {
 
 exports.protectRout = async (req, res, next, role = []) => {
     try {
+        //  get token form headers
         const token = req.headers.authorization?.split(" ")[1];
 
         if (!token) {
@@ -58,9 +59,13 @@ exports.protectRout = async (req, res, next, role = []) => {
             });
         }
 
+        //  verify token if valid expired token
         const decodeToken = jwt.verify(token, process.env.TOKEN_SECRET);
+
+        //  check if user in Database
         const currentUser = await User.findById(decodeToken.user_id);
 
+        //  check found user success
         if (!currentUser) {
             return res.status(401).json({
                 message: "You are not logged in",
@@ -68,6 +73,7 @@ exports.protectRout = async (req, res, next, role = []) => {
             });
         }
 
+        //  check role for user
         if (role.length !== 0 && !role.includes(currentUser["role"])) {
             return res.status(403).json({
                 message: "You don't have permission to access this route",
@@ -75,6 +81,7 @@ exports.protectRout = async (req, res, next, role = []) => {
             });
         }
 
+        //  add user in body of request 
         req.body.user = currentUser;
         next();
     } catch (error) {
