@@ -14,7 +14,7 @@ exports.AddSubCategory = async (req, res, next) => {
     return res.status(200).json(data);
 };
 
-exports.updateSubCategoriesForUser = async (req, res, next) => {
+exports.updateCategoriesForUser = async (req, res, next) => {
 
     if (!req.body.sub_categories) {
         return res.status(400).json({"response": "sub category are required"})
