@@ -19,7 +19,7 @@ exports.addPost = [
         .isMongoId()
         .withMessage("Enter valid id").custom(async (categoryId) => {
         const category = await CategoryModel.find({"_id": categoryId})
-        if (category) {
+        if (category.length === 0) {
             throw new Error("Category not found")
         }
     }),
