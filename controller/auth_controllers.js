@@ -11,7 +11,8 @@ exports.registerUser = async (req, res) => {
         "user_name": req.body.user_name,
         "email": req.body.email,
         "password": req.body.password,
-        "role": req.body.role,
+        "categories": req.body.categories,
+        "sub_categories": req.body.sub_categories,
     })
 
     const token = generateToken(user["_id"])
@@ -34,7 +35,8 @@ exports.loginUser = async (req, res) => {
 }
 
 exports.getMe = async (req, res) => {
-    const user = await User.findById(req.body.user._id)
+    const user = await User.findById(req.body.user._id).populate("categories")
+        .populate("sub_categories")
     if (!user) {
         res.status(404).json({"message": "user not found , please login again"})
     } else {

@@ -27,6 +27,23 @@ const UserSchema = new mongoose.Schema({
         default: null,
     },
 
+    categories: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Categories",
+            default: null
+        },
+
+    ],
+
+    sub_categories: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "SubCategories",
+            default: null
+        },
+
+    ],
     role: {
         type: String,
         enum: ["user", "admin", "manager"],
