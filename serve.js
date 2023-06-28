@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const cors = require('cors');
+const globalError = require("./middlewere/error_handle");
+const {ApiError} = require("./utils/error_handeler");
 
 const app = express()
 
@@ -13,7 +15,7 @@ app.use(bodyParser.json());
 
 // Mount Routes
 dbConnection().then(_ => console.log("Connecting to database success ....."))
-// app.use(cors())
+app.use(cors())
 
 // mountRoutes(app);
 
@@ -32,13 +34,13 @@ const limiter = rateLimit({
     max: 100, message: 'Too many accounts created from this IP, please try again after an hour',
 });
 
-app.use('/api', limiter, () => console.log());
+app.use('/api', limiter);
 
 app.all('*', (req, res, next) => {
     next(new ApiError(`Can't find this route: ${req.originalUrl}`, 400));
 });
 
-// app.use(globalError);
+app.use(globalError);
 
 app.listen(process.env.PORT, () => {
     console.log(`App running : http://localhost:8000/`);
