@@ -8,6 +8,7 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 const globalError = require("./middlewere/error_handle");
 const {ApiError} = require("./utils/error_handeler");
+const mountRoutes = require("./routs");
 
 const app = express()
 
@@ -17,7 +18,7 @@ app.use(bodyParser.json());
 dbConnection().then(_ => console.log("Connecting to database success ....."))
 app.use(cors())
 
-// mountRoutes(app);
+mountRoutes(app);
 
 
 // compress all responses
