@@ -3,22 +3,25 @@ const {ApiError} = require("../utils/error_handeler");
 class CrudOperations {
 
     static async getAllData(req, res, next, model, filter = {}) {
+        try {
 
+            const page = req.query["page"] * 1 || 1
+            const limit = req.query.limit * 1 || 5
+            const skip = (page - 1) * limit
+            let docCount = 0
+            let numberOfPages = 0
+            model.countDocuments().then(count => {
+                docCount = count
+                numberOfPages = docCount / limit
+                numberOfPages = (numberOfPages | 0) + 1
+            })
 
-        const page = req.query["page"] * 1 || 1
-        const limit = req.query.limit * 1 || 5
-        const skip = (page - 1) * limit
-        let docCount = 0
-        let numberOfPages = 0
-        model.countDocuments().then(count => {
-            docCount = count
-            numberOfPages = docCount / limit
-            numberOfPages = (numberOfPages | 0) + 1
-        })
-
-        const data = await model.find(filter).select('-__v').sort("-createdAt").skip(skip).limit(limit);
-        return {
-            "data": data, "statusCode": 200, "message": "successfully request"
+            const data = await model.find(filter).select('-__v').sort("-createdAt").skip(skip).limit(limit);
+            return {
+                "data": data, "statusCode": 200, "message": "successfully request"
+            }
+        } catch (e) {
+            return new ApiError(e, 400)
         }
 
 
@@ -46,8 +49,8 @@ class CrudOperations {
                 }
             }
         } catch (e) {
-            return {"statusCode": 400, "message": "Some this error , try again"}
-
+            console.log(e)
+            return new ApiError(e, 400)
         }
 
 

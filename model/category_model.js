@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-const bcrypt = require("bcrypt")
 
 const CategorySchema = new mongoose.Schema({
 
@@ -12,12 +11,6 @@ const CategorySchema = new mongoose.Schema({
 
 
 }, {timestamps: true})
-
-
-CategorySchema.pre("save", async function (next) {
-    this.password = await bcrypt.hash(this.password, 12)
-    next();
-})
 
 
 module.exports = mongoose.model("Categories", CategorySchema)
