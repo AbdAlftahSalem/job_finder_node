@@ -12,17 +12,23 @@ const PostSchema = new mongoose.Schema({
     description: {
         type: String,
         required: [true, "The title is required"],
-        minLength: [1000, "The min length is 1000"],
+        minLength: [20, "The min length is 20"],
+        maxLength: [1000, "The min length is 1000"]
     },
 
     available_post: {
         type: Boolean,
         default: true,
     },
-    user: {
+    category_id: {
+        type: mongoose.Schema.ObjectId,
+        ref: "Categories",
+        required: [true, "The parent category is required"],
+    },
+    user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: [true, "The title is required"],
+        required: [true, "The user is required"],
     }
 
 
