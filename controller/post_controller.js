@@ -35,3 +35,21 @@ exports.removePost = async (req, res, next) => {
     return res.status(200).json(post)
 
 }
+
+exports.updatePost = async (req, res, next) => {
+    const filter = {"_id": req.body["post_id"]}
+
+    const posts = await PostModel.find(filter)
+
+    if (posts.length === 0) {
+        return res.status(404).json({"res": "post no found"})
+    }
+
+    if (req.body["user"]["_id"].toString() !== posts[0]["user_id"].toString()) {
+        return res.status(404).json({"res": "You are not the creator of this post"});
+    }
+
+    const post = await CrudOperations.updateOneElement(req, res, next, PostModel, filter, req.body)
+    return res.status(200).json(post)
+
+}

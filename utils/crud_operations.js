@@ -83,11 +83,10 @@ class CrudOperations {
     }
 
     static async updateOneElement(req, res, next, model, filter = {}, updateData = {}) {
-
         try {
-            return await model.updateOne(filter, updateData, {returnOriginal: false});
+            return await model.findOneAndUpdate(filter, updateData, {returnOriginal: false});
         } catch (e) {
-            new ApiError(e, 400)
+            new ApiError(e, 400);
         }
     }
 
