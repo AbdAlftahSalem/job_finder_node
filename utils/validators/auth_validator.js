@@ -60,7 +60,3 @@ exports.resetPassword = [check("currentPassword").notEmpty().withMessage("Enter 
     .withMessage("password at lease have 6 char"),
 
     validator,]
-
-exports.getAndDeleteOneUserValidator = [check("id").notEmpty().isMongoId().withMessage("Please enter valid id"),
-
-    validator,]

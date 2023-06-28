@@ -47,45 +47,46 @@ exports.getMe = async (req, res) => {
 }
 
 
-exports.protectRout = async (req, res, next) => {
-    //  get token form headers
+exports.protectRout = async (req, res, next, role = []) => {
     try {
-        let token;
-        if (req.headers["authorization"] && req.headers["authorization"]) {
-
-            token = req.headers["authorization"].split(" ")[1]
-        }
+        const token = req.headers.authorization?.split(" ")[1];
 
         if (!token) {
-            return res.status(401).json({"message": "You are not login", "status": false})
+            return res.status(401).json({
+                message: "You are not logged in",
+                status: false,
+            });
         }
 
-        //  verify token if valid expired token
-        const decodeToken = jwt.verify(token, process.env.TOKEN_SECRET)
-
-        //  check if user in Database
-        const currentUser = await User.findById(decodeToken["user_id"])
+        const decodeToken = jwt.verify(token, process.env.TOKEN_SECRET);
+        const currentUser = await User.findById(decodeToken.user_id);
 
         if (!currentUser) {
-            return res.status(401).json({"message": "You are not login", "status": false})
+            return res.status(401).json({
+                message: "You are not logged in",
+                status: false,
+            });
         }
 
+        if (role.length !== 0 && !role.includes(currentUser["role"])) {
+            return res.status(403).json({
+                message: "You don't have permission to access this route",
+                status: false,
+            });
+        }
 
-        req.body.user = currentUser
+        req.body.user = currentUser;
         next();
-    } catch (e) {
-        return res.status(404).json({"status": false, "msg": "user not found ..."})
+    } catch (error) {
+        return res.status(404).json({
+            status: false,
+            msg: "User not found",
+        });
     }
-
-
-}
+};
 
 const generateToken = (userId) => {
-    return jwt.sign(
-        {user_id: userId},
-        process.env.TOKEN_SECRET,
-        {
-            expiresIn: "2h",
-        }
-    )
+    return jwt.sign({user_id: userId}, process.env.TOKEN_SECRET, {
+        expiresIn: "2h",
+    })
 }

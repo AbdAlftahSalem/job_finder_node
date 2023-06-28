@@ -4,7 +4,6 @@ const validator = require("../../middlewere/validator")
 
 exports.addCategory = [
 
-
     check("title").notEmpty().withMessage("Enter valid title").isLength({
         min: 3,
         max: 20
