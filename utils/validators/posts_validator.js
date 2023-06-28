@@ -1,7 +1,8 @@
 const {check} = require('express-validator');
 
 const validator = require("../../middlewere/validator")
-
+const CategoryModel = require("../../model/category_model")
+const {ApiError} = require("../error_handeler");
 exports.addPost = [
 
     check("title")
@@ -16,7 +17,12 @@ exports.addPost = [
 
     check("category_id")
         .isMongoId()
-        .withMessage("Enter valid id"),
-
-    validator,]
+        .withMessage("Enter valid id").custom(async (categoryId) => {
+        const category = await CategoryModel.find({"_id": categoryId})
+        if (category) {
+            throw new Error("Category not found")
+        }
+    }),
+    validator,
+]
 
