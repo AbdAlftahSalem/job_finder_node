@@ -82,13 +82,13 @@ class CrudOperations {
 
     }
 
-    static async updateOneElement(req, res, next, model) {
-        const {id} = req.params.id
+    static async updateOneElement(req, res, next, model, filter = {}, updateData = {}) {
 
-        return await model.updateOne(id, req.body, {returnOriginal: false}).then((v) => {
-            res.status(200).json({"status": true, "itemUpdatedId": id, "data": v})
-        }).catch((e) => next(new ApiError(e, 400)))
-
+        try {
+            return await model.updateOne(filter, updateData, {returnOriginal: false});
+        } catch (e) {
+            new ApiError(e, 400)
+        }
     }
 
 }
