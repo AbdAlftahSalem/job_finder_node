@@ -68,6 +68,25 @@ exports.resetPassword = async (req, res, next) => {
 
 }
 
+exports.updateUserData = async (req, res, next) => {
+
+    if (!req.body.user) {
+        return res.status(404).json({"res": "user not found"})
+    }
+    const userFilter = {"_id": req.body.user["_id"]}
+
+    const user = CrudOperations.getOneElement(req, res, next, User, {"_id": req.body.user["_id"]})
+
+    if (!user) {
+        return res.status(404).json({"res": "user not found"})
+    }
+
+    const data = await CrudOperations.updateOneElement(req, res, next, User, userFilter, req.body)
+
+    return res.status(200).json(data)
+
+}
+
 exports.getMe = async (req, res) => {
     const user = await User.findById(req.body.user._id).populate("categories")
         .populate("sub_categories")

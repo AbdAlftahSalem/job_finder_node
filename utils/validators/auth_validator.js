@@ -5,7 +5,6 @@ const User = require("../../model/user_model")
 
 exports.registerUser = [
 
-
     check("user_name")
         .isLength({min: 3})
         .withMessage("Too Short username")
