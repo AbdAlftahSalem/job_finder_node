@@ -36,7 +36,7 @@ exports.loginUser = async (req, res) => {
 
 exports.resetPassword = async (req, res, next) => {
 
-    const password = req.body.password
+    const currentPassword = req.body.password
     const newPassword = req.body["newPassword"]
     const confirmPassword = req.body["confirmPassword"]
 
@@ -48,17 +48,18 @@ exports.resetPassword = async (req, res, next) => {
         return res.status(404).json({"res": "user not found ..."})
     }
 
-    // check new old password
-    if (bcrypt.compare(password, req.body.user.password, 12)) {
-        return res.status(400).json({"res": "user not found ..."})
-    }
-
     // check new password == confirmPassword
     if (newPassword !== confirmPassword) {
         return res.status(400).json({"res": "password not match"})
     }
 
-    if (bcrypt.compare(newPassword, req.body.user.password, 12)) {
+    // check current password and send password
+    if (await bcrypt.compare(currentPassword, checkUser["data"]["password"])) {
+        return res.status(404).json({"res": "user not found ..."})
+    }
+
+
+    if (await bcrypt.compare(newPassword, checkUser["data"]["password"])) {
         return res.status(400).json({"res": "You cant enter the same password"})
     }
 
