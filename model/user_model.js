@@ -42,7 +42,14 @@ const UserSchema = new mongoose.Schema({
             ref: "SubCategories",
             default: null
         },
+    ],
 
+    posts: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Posts",
+            default: null
+        },
     ],
     role: {
         type: String,
