@@ -102,7 +102,7 @@ exports.updateUserData = async (req, res, next) => {
 
 exports.getMe = async (req, res) => {
     const user = await User.findById(req.body.user._id).populate("categories")
-        .populate("sub_categories")
+        .populate("sub_categories").select('-__v -password')
     if (!user) {
         res.status(404).json({"message": "user not found , please login again"})
     } else {
