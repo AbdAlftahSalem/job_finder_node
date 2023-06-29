@@ -2,6 +2,7 @@ const User = require("../model/user_model")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const CrudOperations = require("../utils/crud_operations")
+const PostModel = require("../model/post_model")
 
 const env = require("dotenv");
 env.config({path: "./config.env"})
@@ -21,18 +22,30 @@ exports.registerUser = async (req, res) => {
 }
 
 exports.loginUser = async (req, res) => {
-    const user = await User.findOne({email: req.body.email})
+    let user = await User.findOne({email: req.body.email})
+
     if (!user) {
         return res.status(404).json({"status": false, "error": [{"msg": " Email or password incorrect"}]})
-    } else {
-        if (await bcrypt.compare(req.body.password, user["password"])) {
-            const token = generateToken(user["_id"])
-            return res.status(200).json({data: user, token})
-        }
     }
+
+    if (await bcrypt.compare(req.body.password, user["password"])) {
+        const token = generateToken(user["_id"])
+        user["posts"] = await getPostsUser(req, res, user["_id"])
+        return res.status(200).json({data: user, token})
+    }
+
     return res.status(404).json({"status": false, "error": [{"msg": " Email or password incorrect"}]})
 
 }
+
+getPostsUser = async (req, res, userId) => {
+    try {
+        return await PostModel.find({"user_id": userId})
+    } catch (e) {
+        res.status(400).json({"res": e})
+    }
+}
+
 
 exports.resetPassword = async (req, res, next) => {
 
@@ -89,10 +102,12 @@ exports.updateUserData = async (req, res, next) => {
 
 exports.getMe = async (req, res) => {
     const user = await User.findById(req.body.user._id).populate("categories")
-        .populate("sub_categories")
+        .populate("sub_categories").select('-__v -password')
     if (!user) {
         res.status(404).json({"message": "user not found , please login again"})
     } else {
+        user["posts"] = await getPostsUser(req, res, user["_id"])
+
         res.status(200).json(user)
 
     }
