@@ -1,26 +1,29 @@
 const CrudOperations = require("../utils/crud_operations")
 const PostModel = require("../model/post_model")
 
-exports.getPosts = async (req, res) => {
-    try {
-        let posts = await PostModel.PostMdoel.find({category_id: {$in: req.body.user["categories"]}}).populate("user_id").populate("category_id").select("-comments").exec();
-        return res.status(200).json(posts)
-    } catch (e) {
-        return res.status(400).json({"res": e})
+
+exports.addComment = async (req, res, next) => {
+
+    console.log(req.body["post_id"])
+    const data = await CrudOperations.getOneElement(req, res, next, PostModel.PostMdoel, {"_id": req.body["post_id"]})
+    if (!(data["data"])) {
+        return res.status(404).json({"res": "No post found to add comment"})
     }
 
-}
+    const post = data["data"]
 
-exports.addPost = async (req, res, next) => {
-    req.body.user_id = req.body.user["_id"]
-    const post = await CrudOperations.addElement(req, res, next, PostModel.PostMdoel)
-    return res.status(200).json(post)
+    if (!post["available_post"]) {
+        return res.status(403).json({"res": "You cant add comment in this post"})
+    }
+
+    const data2 = await CrudOperations.addElement(req, res, next, PostModel.CommentMdoel)
+    return res.status(200).json(data2)
 
 }
 
 exports.removePost = async (req, res, next) => {
 
-    const posts = await PostModel.PostMdoel.find({"_id": req.body["post_id"]})
+    const posts = await PostModel.find({"_id": req.body["post_id"]})
 
     if (posts.length === 0) {
         return res.status(404).json({"res": "post no found"})
@@ -30,7 +33,7 @@ exports.removePost = async (req, res, next) => {
         return res.status(404).json({"res": "You are not the creator of this post"});
     }
 
-    const post = await CrudOperations.removeElement(req, res, next, PostModel.PostMdoel)
+    const post = await CrudOperations.removeElement(req, res, next, PostModel)
     return res.status(200).json(post)
 
 }
@@ -38,7 +41,7 @@ exports.removePost = async (req, res, next) => {
 exports.updatePost = async (req, res, next) => {
     const filter = {"_id": req.body["post_id"]}
 
-    const posts = await PostModel.PostMdoel.find(filter)
+    const posts = await PostModel.find(filter)
 
     if (posts.length === 0) {
         return res.status(404).json({"res": "post no found"})
@@ -48,7 +51,7 @@ exports.updatePost = async (req, res, next) => {
         return res.status(404).json({"res": "You are not the creator of this post"});
     }
 
-    const post = await CrudOperations.updateOneElement(req, res, next, PostModel.PostMdoel, filter, req.body)
+    const post = await CrudOperations.updateOneElement(req, res, next, PostModel, filter, req.body)
     return res.status(200).json(post)
 
 }
