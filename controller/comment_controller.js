@@ -40,17 +40,17 @@ exports.removeComment = async (req, res, next) => {
 exports.updateComment = async (req, res, next) => {
     const filter = {"_id": req.body["comment_id"]}
 
-    const comments = await PostModel.CommentMdoel.find(filter)
-
-    if (comments.length === 0) {
+    const comment = await PostModel.CommentMdoel.findOne(filter)
+    console.log(comment)
+    if (!comment) {
         return res.status(404).json({"res": "comment no found"})
     }
 
-    if (req.body["user"]["_id"].toString() !== comments[0]["user_id"].toString()) {
+    if (req.body["user"]["_id"].toString() !== comment["user_id"].toString()) {
         return res.status(404).json({"res": "You are not the creator of this comment"});
     }
 
-    const comment = await CrudOperations.updateOneElement(req, res, next, PostModel.CommentMdoel, filter, req.body)
-    return res.status(200).json(comment)
+    const commentRes = await CrudOperations.updateOneElement(req, res, next, PostModel.CommentMdoel, filter, {title: req.body.title})
+    return res.status(200).json(commentRes)
 
 }
