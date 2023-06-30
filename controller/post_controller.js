@@ -1,6 +1,5 @@
 const CrudOperations = require("../utils/crud_operations")
 const PostModel = require("../model/post_model")
-const {ApiError} = require("../utils/error_handeler");
 
 exports.getPosts = async (req, res) => {
     try {

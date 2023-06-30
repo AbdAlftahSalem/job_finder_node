@@ -160,6 +160,6 @@ exports.protectRout = async (req, res, next, role = []) => {
 
 const generateToken = (userId) => {
     return jwt.sign({user_id: userId}, process.env.TOKEN_SECRET, {
-        expiresIn: "2h",
+        expiresIn: "30d",
     })
 }
