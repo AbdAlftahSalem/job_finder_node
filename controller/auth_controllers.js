@@ -46,7 +46,6 @@ getPostsUser = async (req, res, userId) => {
     }
 }
 
-
 exports.resetPassword = async (req, res, next) => {
 
     const currentPassword = req.body.password
@@ -88,13 +87,17 @@ exports.updateUserData = async (req, res, next) => {
     }
     const userFilter = {"_id": req.body.user["_id"]}
 
-    const user = CrudOperations.getOneElement(req, res, next, User, {"_id": req.body.user["_id"]})
+    const user = CrudOperations.getOneElement(req, res, next, User, userFilter)
 
     if (!user) {
         return res.status(404).json({"res": "user not found"})
     }
 
-    const data = await CrudOperations.updateOneElement(req, res, next, User, userFilter, req.body)
+    const data = await CrudOperations.updateOneElement(req, res, next, User, userFilter, {
+        "categories": req.body.categories,
+        "sub_categories": req.body.sub_categories ? req.body.sub_categories : user["sub_categories"],
+        "username": req.body.username ? req.body.username : user["username"],
+    })
 
     return res.status(200).json(data)
 
@@ -157,6 +160,6 @@ exports.protectRout = async (req, res, next, role = []) => {
 
 const generateToken = (userId) => {
     return jwt.sign({user_id: userId}, process.env.TOKEN_SECRET, {
-        expiresIn: "2h",
+        expiresIn: "30d",
     })
 }

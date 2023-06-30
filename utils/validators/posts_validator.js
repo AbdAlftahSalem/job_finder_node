@@ -12,7 +12,7 @@ exports.addPost = [
         .isLength({max: 20}).withMessage("Too long title"),
 
     check("description")
-        .isLength({min: 3})
+        .isLength({min: 20})
         .withMessage("Too Short description")
         .isLength({max: 1000}).withMessage("Too long description"),
 

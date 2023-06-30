@@ -14,5 +14,5 @@ router.route("/register").post(validator.registerUser, registerUser)
 router.route("/login").post(validator.loginUser, loginUser)
 router.route("/reset_password").post(protectRout, resetPassword)
 router.route("/get-me").get(AuthController.protectRout, getMe)
-router.route("/update-user-data").post(validator.registerUser, AuthController.protectRout, updateUserData)
+router.route("/update-user-data").post(AuthController.protectRout, updateUserData)
 module.exports = router;
