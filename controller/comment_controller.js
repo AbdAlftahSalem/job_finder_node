@@ -21,37 +21,37 @@ exports.addComment = async (req, res, next) => {
 
 }
 
-exports.removePost = async (req, res, next) => {
+exports.removeComment = async (req, res, next) => {
 
-    const posts = await PostModel.find({"_id": req.body["post_id"]})
+    const comments = await PostModel.CommentMdoel.find({"_id": req.body["comment_id"]})
 
-    if (posts.length === 0) {
-        return res.status(404).json({"res": "post no found"})
+    if (comments.length === 0) {
+        return res.status(404).json({"res": "comment no found"})
     }
 
-    if (req.body["user"]["_id"].toString() !== posts[0]["user_id"].toString()) {
-        return res.status(404).json({"res": "You are not the creator of this post"});
+    if (req.body["user"]["_id"].toString() !== comments[0]["user_id"].toString()) {
+        return res.status(404).json({"res": "You are not the creator of this comment"});
     }
 
-    const post = await CrudOperations.removeElement(req, res, next, PostModel)
-    return res.status(200).json(post)
+    const comment = await CrudOperations.removeElement(req, res, next, PostModel.CommentMdoel)
+    return res.status(200).json(comment)
 
 }
 
-exports.updatePost = async (req, res, next) => {
-    const filter = {"_id": req.body["post_id"]}
+exports.updateComment = async (req, res, next) => {
+    const filter = {"_id": req.body["comment_id"]}
 
-    const posts = await PostModel.find(filter)
+    const comments = await PostModel.CommentMdoel.find(filter)
 
-    if (posts.length === 0) {
-        return res.status(404).json({"res": "post no found"})
+    if (comments.length === 0) {
+        return res.status(404).json({"res": "comment no found"})
     }
 
-    if (req.body["user"]["_id"].toString() !== posts[0]["user_id"].toString()) {
-        return res.status(404).json({"res": "You are not the creator of this post"});
+    if (req.body["user"]["_id"].toString() !== comments[0]["user_id"].toString()) {
+        return res.status(404).json({"res": "You are not the creator of this comment"});
     }
 
-    const post = await CrudOperations.updateOneElement(req, res, next, PostModel, filter, req.body)
-    return res.status(200).json(post)
+    const comment = await CrudOperations.updateOneElement(req, res, next, PostModel.CommentMdoel, filter, req.body)
+    return res.status(200).json(comment)
 
 }
