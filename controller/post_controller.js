@@ -31,21 +31,30 @@ exports.addPost = async (req, res, next) => {
 }
 
 exports.removePost = async (req, res, next) => {
+    const postId = req.body.post_id;
 
-    const posts = await PostModel.PostMdoel.find({"_id": req.body["post_id"]})
+    const posts = await PostModel.PostMdoel.find({_id: postId});
 
     if (posts.length === 0) {
-        return res.status(404).json({"res": "post no found"})
+        return res.status(404).json({res: "Post not found"});
     }
 
-    if (req.body["user"]["_id"].toString() !== posts[0]["user_id"].toString()) {
-        return res.status(404).json({"res": "You are not the creator of this post"});
+    const userId = req.body.user._id;
+    const post = posts[0];
+
+    if (userId.toString() !== post.user_id.toString()) {
+        return res.status(403).json({res: "You are not the creator of this post"});
     }
 
-    const post = await CrudOperations.removeElement(req, res, next, PostModel.PostMdoel)
-    return res.status(200).json(post)
+    try {
+        const postDelete = await PostModel.PostMdoel.findByIdAndDelete(postId);
+        const commentDelete = await PostModel.CommentMdoel.deleteMany({post_id: postId});
+        return res.status(200).json({postDelete});
+    } catch (error) {
+        return res.status(500).json({error: "An error occurred while deleting the post"});
+    }
+};
 
-}
 
 exports.updatePost = async (req, res, next) => {
     const filter = {"_id": req.body["post_id"]}
