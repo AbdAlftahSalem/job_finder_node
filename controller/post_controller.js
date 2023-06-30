@@ -15,7 +15,7 @@ exports.getPostWithComments = async (req, res) => {
     try {
         const filter = {"post_id": req.body["post_id"]}
         let posts = await PostModel.PostMdoel.findOne({"_id": req.body["post_id"]}).populate("user_id").populate("category_id").exec();
-        posts.comments = await PostModel.CommentMdoel.find(filter)
+        posts.comments = await PostModel.CommentMdoel.find(filter).populate("user_id")
         return res.status(200).json(posts)
     } catch (e) {
         return res.status(400).json({"res": e})

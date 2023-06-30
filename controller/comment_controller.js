@@ -4,7 +4,6 @@ const PostModel = require("../model/post_model")
 
 exports.addComment = async (req, res, next) => {
 
-    console.log(req.body["post_id"])
     const data = await CrudOperations.getOneElement(req, res, next, PostModel.PostMdoel, {"_id": req.body["post_id"]})
     if (!(data["data"])) {
         return res.status(404).json({"res": "No post found to add comment"})
@@ -16,6 +15,7 @@ exports.addComment = async (req, res, next) => {
         return res.status(403).json({"res": "You cant add comment in this post"})
     }
 
+    req.body["user_id"] = req.body.user["_id"]
     const data2 = await CrudOperations.addElement(req, res, next, PostModel.CommentMdoel)
     return res.status(200).json(data2)
 
@@ -23,18 +23,17 @@ exports.addComment = async (req, res, next) => {
 
 exports.removeComment = async (req, res, next) => {
 
-    const comments = await PostModel.CommentMdoel.find({"_id": req.body["comment_id"]})
-
-    if (comments.length === 0) {
+    const comment = await PostModel.CommentMdoel.findOne({"_id": req.body["comment_id"]})
+    if (!comment) {
         return res.status(404).json({"res": "comment no found"})
     }
 
-    if (req.body["user"]["_id"].toString() !== comments[0]["user_id"].toString()) {
+    if (req.body["user"]["_id"].toString() !== comment["user_id"].toString()) {
         return res.status(404).json({"res": "You are not the creator of this comment"});
     }
 
-    const comment = await CrudOperations.removeElement(req, res, next, PostModel.CommentMdoel)
-    return res.status(200).json(comment)
+    const commentRes = await CrudOperations.removeElement(req, res, next, PostModel.CommentMdoel)
+    return res.status(200).json(commentRes)
 
 }
 
