@@ -15,6 +15,10 @@ exports.addComment = async (req, res, next) => {
         return res.status(403).json({"res": "You cant add comment in this post"})
     }
 
+    if (req.body.user["cv"] === null) {
+        return res.status(403).json({"res": "Upload cv before comment"})
+    }
+
     req.body["user_id"] = req.body.user["_id"]
     const data2 = await CrudOperations.addElement(req, res, next, PostModel.CommentMdoel)
     return res.status(200).json(data2)
