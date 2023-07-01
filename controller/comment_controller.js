@@ -20,8 +20,8 @@ exports.addComment = async (req, res, next) => {
     }
 
     req.body["user_id"] = req.body.user["_id"]
-    const data2 = await CrudOperations.addElement(req, res, next, PostModel.CommentMdoel)
-    return res.status(200).json(data2)
+    const addCommentRes = await CrudOperations.addElement(req, res, next, PostModel.CommentMdoel)
+    return res.status(200).json(addCommentRes)
 
 }
 
