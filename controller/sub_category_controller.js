@@ -10,6 +10,7 @@ exports.getAllSubCategories = async (req, res, next) => {
 };
 
 exports.AddSubCategory = async (req, res, next) => {
+    req.body.image = req.file
     const data = await CrudOperations.addElement(req, res, next, SubCategoryModel);
     return res.status(200).json(data);
 };
