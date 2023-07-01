@@ -52,7 +52,7 @@ exports.uploadFile = async (req, res, next, fileName, typeFiled = ["pdf"]) => {
                 // File upload completed successfully
                 req.file = await getDownloadURL(storageRef)
                 next();
-            },
+            }
         );
     });
 };

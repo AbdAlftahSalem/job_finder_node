@@ -55,6 +55,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: ["user", "admin", "manager"],
         default: "user",
+    },
+    cv: {
+        type: String,
+        default: null,
     }
 
 
