@@ -1,0 +1,767 @@
+{
+	"info": {
+		"_postman_id": "7567ee7b-c045-4414-8940-b4e852a7bf50",
+		"name": "Job finder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14705254"
+	},
+	"item": [
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get gategories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjRhMDMzMzZkNWU4YWExMWQyM2ZjMzk1IiwiaWF0IjoxNjg4MjIwNDcxLCJleHAiOjE2OTA4MTI0NzF9.dngJMQt3iElEWtdPJhUBC6b5UfwTzAcWjCzckXdRBDo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/categories/get_categories",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"categories",
+								"get_categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjRhMDMzMzZkNWU4YWExMWQyM2ZjMzk1IiwiaWF0IjoxNjg4MjIwNDcxLCJleHAiOjE2OTA4MTI0NzF9.dngJMQt3iElEWtdPJhUBC6b5UfwTzAcWjCzckXdRBDo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Mobile",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/hp/Desktop/1588594578279.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}api/v1/categories/add_categories",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"categories",
+								"add_categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sub Categories",
+			"item": [
+				{
+					"name": "Get sub gategories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjRhMDMzMzZkNWU4YWExMWQyM2ZjMzk1IiwiaWF0IjoxNjg4MjIwNDcxLCJleHAiOjE2OTA4MTI0NzF9.dngJMQt3iElEWtdPJhUBC6b5UfwTzAcWjCzckXdRBDo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"parent_id\" : \"64a0374932460ebd5a7b2fef\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/categories/get_sub_categories",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"categories",
+								"get_sub_categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add sub categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjRhMDMzMzZkNWU4YWExMWQyM2ZjMzk1IiwiaWF0IjoxNjg4MjIwNDcxLCJleHAiOjE2OTA4MTI0NzF9.dngJMQt3iElEWtdPJhUBC6b5UfwTzAcWjCzckXdRBDo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Flutter",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/hp/Desktop/logo.png"
+								},
+								{
+									"key": "parent_id",
+									"value": "64a0374932460ebd5a7b2fef",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}api/v1/categories/add_sub_categories",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"categories",
+								"add_sub_categories"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Sign up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\": \"ABD ALFTAH\",\r\n    \"email\": \"ab@gsm.codsm\",\r\n    \"password\": \"123456789\",\r\n    \"passwordConfirm\": \"123456789\",\r\n    \"categories\": [\r\n        \"649bf2ec6acb9750f92fb956\"\r\n    ],\r\n    \"sub_categories\": [\r\n        \"649c02355ab3ffcff3ddf1b3\"\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/auth/register",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upload CV",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjRhMDMzMzZkNWU4YWExMWQyM2ZjMzk1IiwiaWF0IjoxNjg4MjIwNDcxLCJleHAiOjE2OTA4MTI0NzF9.dngJMQt3iElEWtdPJhUBC6b5UfwTzAcWjCzckXdRBDo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "cv",
+									"type": "file",
+									"src": "/C:/Users/hp/Desktop/CAC Community agreement.pdf"
+								},
+								{
+									"key": "id",
+									"value": "64a03336d5e8aa11d23fc395",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}api/v1/auth/upload-cv",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"upload-cv"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user data",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ5YzMyZGQ0ZDg5OTQwMDZkNzg5OWQ1IiwiaWF0IjoxNjg4MDIzMTgxLCJleHAiOjE2ODgwMzAzODF9.bqGzRr4mTMz3_iwobOEEGEwLykYJq071hFw32wKcRNY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\": \"ABD\",\r\n    \"password\": \"123456789\",\r\n    \"passwordConfirm\": \"123456789\",\r\n    \"categories\": [\r\n        \"649d3176d60e56e8496b0db0\"\r\n    ],\r\n    \"sub_categories\": [\r\n        \"649c02355ab3ffcff3ddf1b3\"\r\n    ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/auth/update-user-data",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"update-user-data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ab@gsm.codsm\",\r\n    \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/auth//login",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ5YzMyZGQ0ZDg5OTQwMDZkNzg5OWQ1IiwiaWF0IjoxNjg3OTY2MzAzLCJleHAiOjE2ODc5NzM1MDN9.fpGQ0fzRX2_YWyUXbxtvxx7xwVpAaK4NqlqOeFBqIO8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ab@gsm.codsm\",\r\n    \"password\": \"123456789\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/auth/reset_password",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"reset_password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ5YzMyZGQ0ZDg5OTQwMDZkNzg5OWQ1IiwiaWF0IjoxNjg4MTEzNzQ1LCJleHAiOjE2OTA3MDU3NDV9.VYWWrDf1_fivLr2IDDIDxIkXiC-WVE5etw3Fe5At8s8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/auth/get-me",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"get-me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Udpate sub category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ5YzMyZGQ0ZDg5OTQwMDZkNzg5OWQ1IiwiaWF0IjoxNjg3OTU4MjM3LCJleHAiOjE2ODc5NjU0Mzd9.JTEoqP1MI9BHtguQPOulM2K0SPVlsa9fGIHy6GD4Kaw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"sub_categories\": [\r\n        // \"649c0180e7601e20f0ebaa2d\"\r\n    // ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/categories/update_sub_category",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"categories",
+								"update_sub_category"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Add post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjRhMDMzMzZkNWU4YWExMWQyM2ZjMzk1IiwiaWF0IjoxNjg4MjIwNDcxLCJleHAiOjE2OTA4MTI0NzF9.dngJMQt3iElEWtdPJhUBC6b5UfwTzAcWjCzckXdRBDo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\" : \"MOBILE \",\r\n    \"description\" : \"MOBILEMOBILE MOBILE MOBILE MOBILE MOBILE MOBILE MOBILE MOBILE  \",\r\n    \"category_id\" : \"64a0374932460ebd5a7b2fef\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/post/posts",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"post",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ5YzMyZGQ0ZDg5OTQwMDZkNzg5OWQ1IiwiaWF0IjoxNjg4MTEzNzQ1LCJleHAiOjE2OTA3MDU3NDV9.VYWWrDf1_fivLr2IDDIDxIkXiC-WVE5etw3Fe5At8s8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"post_id\" : \"649f104f592c3fb4ad631fa6\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/post/posts-remove",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"post",
+								"posts-remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ5YzMyZGQ0ZDg5OTQwMDZkNzg5OWQ1IiwiaWF0IjoxNjg3OTgzNjA5LCJleHAiOjE2ODc5OTA4MDl9.zMGB05oPRDAG9DwIAPcS5o9uzUBkA3WUuBAGVHxaaAI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"post_id\" : \"649ca079de579c20b665a9ec\",\r\n    \"title\" : \"Test udpate\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/post/posts-update",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"post",
+								"posts-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get  posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjRhMDMzMzZkNWU4YWExMWQyM2ZjMzk1IiwiaWF0IjoxNjg4MjIwNDcxLCJleHAiOjE2OTA4MTI0NzF9.dngJMQt3iElEWtdPJhUBC6b5UfwTzAcWjCzckXdRBDo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}api/v1/post/posts",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"post",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get post with comment",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ5YzMyZGQ0ZDg5OTQwMDZkNzg5OWQ1IiwiaWF0IjoxNjg4MTEzNzQ1LCJleHAiOjE2OTA3MDU3NDV9.VYWWrDf1_fivLr2IDDIDxIkXiC-WVE5etw3Fe5At8s8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"post_id\" : \"649f0ff31fa12606769866bc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/post/post-with-comment",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"post",
+								"post-with-comment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Add comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjRhMDMzMzZkNWU4YWExMWQyM2ZjMzk1IiwiaWF0IjoxNjg4MjIwNDcxLCJleHAiOjE2OTA4MTI0NzF9.dngJMQt3iElEWtdPJhUBC6b5UfwTzAcWjCzckXdRBDo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"post_id\" : \"64a0386078a5a1ec08aec337\",\r\n    \"title\" : \"TEST\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/comment/add-comment",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"comment",
+								"add-comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ5YzMyZGQ0ZDg5OTQwMDZkNzg5OWQ1IiwiaWF0IjoxNjg4MTEzNzQ1LCJleHAiOjE2OTA3MDU3NDV9.VYWWrDf1_fivLr2IDDIDxIkXiC-WVE5etw3Fe5At8s8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment_id\" : \"649f0b5cee1fc06838cd326b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/comment/comment-remove",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"comment",
+								"comment-remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQ5YzMyZGQ0ZDg5OTQwMDZkNzg5OWQ1IiwiaWF0IjoxNjg4MTEzNzQ1LCJleHAiOjE2OTA3MDU3NDV9.VYWWrDf1_fivLr2IDDIDxIkXiC-WVE5etw3Fe5At8s8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment_id\" : \"649f0c849fed5441c4fba20f\",\r\n    \"title\" : \"Test after udpate .....\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}api/v1/comment/comment-update",
+							"host": [
+								"{{url}}api"
+							],
+							"path": [
+								"v1",
+								"comment",
+								"comment-update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8000/\n",
+			"type": "string"
+		}
+	]
+}
