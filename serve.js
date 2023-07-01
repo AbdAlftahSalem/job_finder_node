@@ -9,10 +9,16 @@ const cors = require('cors');
 const globalError = require("./middlewere/error_handle");
 const {ApiError} = require("./utils/error_handeler");
 const mountRoutes = require("./routs");
+const {json, urlencoded} = require("body-parser");
 
 const app = express()
 
 app.use(bodyParser.json());
+app.set('view engine', 'ejs');
+app.use(json());
+app.use(urlencoded({
+    extended: false
+}));
 
 // Mount Routes
 dbConnection().then(_ => console.log("Connecting to database success ....."))
