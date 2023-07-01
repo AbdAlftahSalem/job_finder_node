@@ -38,13 +38,6 @@ exports.loginUser = async (req, res) => {
 
 }
 
-getPostsUser = async (req, res, userId) => {
-    try {
-        return await PostModel.find({"user_id": userId})
-    } catch (e) {
-        res.status(400).json({"res": e})
-    }
-}
 
 exports.resetPassword = async (req, res, next) => {
 
@@ -148,7 +141,7 @@ exports.protectRout = async (req, res, next, role = []) => {
             });
         }
 
-        //  add user in body of request 
+        //  add user in body of request
         req.body.user = currentUser;
         next();
     } catch (error) {
@@ -158,8 +151,25 @@ exports.protectRout = async (req, res, next, role = []) => {
     }
 };
 
+exports.uploadCV = async (req, res, next) => {
+    try {
+        const cv = await CrudOperations.updateOneElement(req, res, next, User, {"_id": req.body.id}, {"cv": req.file})
+        return res.status(200).json({"res": "Upload success", cv})
+    } catch (e) {
+        console.log(e)
+        return res.status(500).json({error: e})
+    }
+}
 const generateToken = (userId) => {
     return jwt.sign({user_id: userId}, process.env.TOKEN_SECRET, {
         expiresIn: "30d",
     })
+}
+
+getPostsUser = async (req, res, userId) => {
+    try {
+        return await PostModel.PostMdoel.find({"user_id": userId})
+    } catch (e) {
+        res.status(400).json({"res": e})
+    }
 }

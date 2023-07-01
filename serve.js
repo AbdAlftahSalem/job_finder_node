@@ -9,10 +9,16 @@ const cors = require('cors');
 const globalError = require("./middlewere/error_handle");
 const {ApiError} = require("./utils/error_handeler");
 const mountRoutes = require("./routs");
+const {json, urlencoded} = require("body-parser");
 
 const app = express()
 
 app.use(bodyParser.json());
+app.set('view engine', 'ejs');
+app.use(json());
+app.use(urlencoded({
+    extended: false
+}));
 
 // Mount Routes
 dbConnection().then(_ => console.log("Connecting to database success ....."))
@@ -26,7 +32,7 @@ app.use(compression());
 
 
 // Middlewares
-app.use(express.json({limit: '20kb'}));
+app.use(express.json({limit: '5M'}));
 
 
 // Limit each IP to 100 requests per `window` (here, per 15 minutes)

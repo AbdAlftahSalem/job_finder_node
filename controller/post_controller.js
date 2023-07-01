@@ -48,7 +48,7 @@ exports.removePost = async (req, res, next) => {
 
     try {
         const postDelete = await PostModel.PostMdoel.findByIdAndDelete(postId);
-        const commentDelete = await PostModel.CommentMdoel.deleteMany({post_id: postId});
+        await PostModel.CommentMdoel.deleteMany({post_id: postId});
         return res.status(200).json({postDelete});
     } catch (error) {
         return res.status(500).json({error: "An error occurred while deleting the post"});
