@@ -10,7 +10,7 @@ const globalError = require("./middlewere/error_handle");
 const {ApiError} = require("./utils/error_handeler");
 const mountRoutes = require("./routs");
 const {json, urlencoded} = require("body-parser");
-
+const seeder = require("./utils/dummy_data/seeder")
 const app = express()
 
 app.use(bodyParser.json());
@@ -21,7 +21,7 @@ app.use(urlencoded({
 }));
 
 // Mount Routes
-dbConnection().then(_ => console.log("Connecting to database success ....."))
+dbConnection().then(_ => seeder.seedSubCategories())
 app.use(cors())
 
 mountRoutes(app);
