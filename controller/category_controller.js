@@ -8,6 +8,7 @@ exports.getAllCategories = async (req, res, next) => {
 }
 
 exports.AddCategory = async (req, res, next) => {
+    req.body.image = req.file
     const data = await CrudOperations.addElement(req, res, next, CategoryModel);
     return res.status(200).json(data)
 }

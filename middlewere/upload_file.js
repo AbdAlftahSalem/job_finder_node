@@ -14,7 +14,7 @@ const upload = multer({storage: multer.memoryStorage()});
 
 
 // Define the upload middleware
-const uploadFile = async (req, res, next, fileName, typeFiled = [".pdf"]) => {
+exports.uploadFile = async (req, res, next, fileName, typeFiled = ["pdf"]) => {
     upload.single(fileName)(req, res, (err) => {
         if (err) {
             return res.status(500).json({error: err.message});
@@ -25,26 +25,24 @@ const uploadFile = async (req, res, next, fileName, typeFiled = [".pdf"]) => {
             return res.status(400).json({error: 'No file provided'});
         }
 
-
-        if (!typeFiled.includes(req.file.originalname.toString().split(".")[1])) {
+        if (!typeFiled.includes(req.file["originalname"].toString().split(".")[1].toLocaleLowerCase())) {
             return res.status(400).json({error: 'No file provided'});
         }
 
         // Create a bucket reference
-        const storageRef = ref(storage, `files/${req.file.originalname}`);
+        const storageRef = ref(storage, `files/${Date.now()}${req.file["originalname"]}`);
 
         // Create file metadata including the content type
         const metadata = {
-            contentType: req.file.mimetype,
+            contentType: req.file["mimetype"],
         };
 
         // Upload the file to the bucket storage
-        const uploadTask = uploadBytesResumable(storageRef, req.file.buffer, metadata);
+        const uploadTask = uploadBytesResumable(storageRef, req.file["buffer"], metadata);
 
         uploadTask.on('state_changed',
             (snapshot) => {
                 // Track upload progress if needed
-                console.log(snapshot)
             },
             (error) => {
                 console.error(error);
@@ -54,7 +52,7 @@ const uploadFile = async (req, res, next, fileName, typeFiled = [".pdf"]) => {
                 // File upload completed successfully
                 req.file = await getDownloadURL(storageRef)
                 next();
-            }
+            },
         );
     });
 };

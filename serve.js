@@ -32,7 +32,7 @@ app.use(compression());
 
 
 // Middlewares
-app.use(express.json({limit: '20kb'}));
+app.use(express.json({limit: '5M'}));
 
 
 // Limit each IP to 100 requests per `window` (here, per 15 minutes)
